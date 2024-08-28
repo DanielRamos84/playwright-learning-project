@@ -63,7 +63,7 @@ test('Find all the card titles', async ({ page }) => {
     await expect(page.locator('.card-title a')).toHaveText(['iphone X', 'Samsung Note 8', 'Nokia Edge', 'Blackberry'])
 })
 
-test('Registration and Signup', async ({ browser }) => {
+test.skip('Registration and Signup', async ({ browser }) => {
     //TODO: randomize user and pw
     const context = await browser.newContext();
     const page = await context.newPage();

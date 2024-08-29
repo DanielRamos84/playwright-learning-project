@@ -1,33 +1,24 @@
-# 📅 Calendar Dropdown Test
+# 🚀 Playwright Learning Project
 
-This README provides an overview of the automated test scripts for verifying the **calendar dropdown** functionality on a sample e-commerce website using Playwright.
+Welcome to the **Playwright Learning Project**! This repository is designed to help you explore and experiment with Playwright using an e-commerce website. Whether you're a beginner or looking to sharpen your skills, you'll find this a valuable resource.
 
-## 🔍 Overview
+🔗 **Live Site**: [Rahul Shetty Academy E-commerce Website](https://rahulshettyacademy.com/client)
 
-These test scripts automate the process of setting calendar dates on the e-commerce website: [Rahul Shetty Academy - Selenium Practise](https://rahulshettyacademy.com/seleniumPractise/#/offers). The tests cover the following scenarios:
+## 🎯 Prerequisites
 
-1. **Set Calendar Date Using Keyboard**
-2. **Set Calendar Date Using Modal**
+Before you get started, make sure you have the following:
 
-## 📝 Test Scenarios
+- **Node.js**: Version 14 or higher installed.
+- **Playwright**: Install it via npm:  
+  ```bash
+  npm install @playwright/test
+  ```
+- **Website Access**: You'll need access to the e-commerce site to run the tests. Visit [this link](https://rahulshettyacademy.com/client) to check it out.
 
-### 1️⃣ Test 1: Set Calendar Date Using Keyboard
+## 🧪 Available Tests
 
-This test verifies the ability to set the calendar date using keyboard inputs.
+- [Checkout Flow](https://github.com/DanielRamos84/playwright-learning-project/tree/test/checkout-flow)
+- [Calendar Dropdown](https://github.com/DanielRamos84/playwright-learning-project/tree/test/calendar-dropdown)
+- [Alert Dialog](https://github.com/DanielRamos84/playwright-learning-project/tree/test/alert-dialog)
 
-- 🖱️ **Navigate to the Website**
-- 📅 **Verify Initial Date**
-- ❌ **Clear Existing Date**
-- ⌨️ **Enter New Date Using Keyboard**
-- ✅ **Verify Updated Date**
-
-### 2️⃣ Test 2: Set Calendar Date Using Modal
-
-This test verifies the ability to set the calendar date using the modal interface.
-
-- 🖱️ **Navigate to the Website**
-- 📆 **Open Calendar Modal**
-- 🔄 **Verify Initial Month and Year**
-- ⏭️ **Navigate to Next Month**
-- 📅 **Select a Specific Day**
-- ✅ **Verify Updated Date**
+⚙️ *More tests are on the way...*

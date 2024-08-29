@@ -11,9 +11,9 @@ test('Set Calendar Date Using Keyboard', async ({ page }) => {
         return yyyy + '-' + mm + '-' + dd;
     }
 
-    const testMonthEntry = '11';
-    const testDayEntry = '12';
-    const testYearEntry = '2023';
+    const testMonthEntry = '01';
+    const testDayEntry = '01';
+    const testYearEntry = '2025';
 
     await expect(page).toHaveTitle('GreenKart - veg and fruits kart');
     await expect(page.locator('[name="date"]')).toHaveValue(getCurrentDate());
@@ -31,12 +31,13 @@ test('Set Calendar Date Using Modal', async ({ page }) => {
         return today.toLocaleDateString('en-US', options);
     }
 
-    function getNextMonthYear() {
+    function getNextMonthYear(day) {
         const date = new Date();
         date.setMonth(date.getMonth() + 1);
         const month = date.toLocaleString('default', { month: 'long' });
         const year = date.getFullYear();
-        return `${month} ${year}`;
+        const formattedDate = `${year}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        return { monthYear: `${month} ${year}`, formattedDate };
     }
 
     await expect(page).toHaveTitle('GreenKart - veg and fruits kart');
@@ -45,11 +46,14 @@ test('Set Calendar Date Using Modal', async ({ page }) => {
 
     await expect(page.locator('button.react-calendar__navigation__label')).toHaveText(getCurrentMonthYear());
 
+    const dayToSelect = '15';
+    const { monthYear, formattedDate } = getNextMonthYear(dayToSelect);
+
     await page.locator('button.react-calendar__navigation__arrow.react-calendar__navigation__next-button').click();
 
-    await expect(page.locator('button.react-calendar__navigation__label')).toHaveText(getNextMonthYear());
+    await expect(page.locator('button.react-calendar__navigation__label')).toHaveText(monthYear);
 
-    await page.locator('button.react-calendar__tile.react-calendar__month-view__days__day', { hasText: '30' }).last().click();
+    await page.locator('button.react-calendar__tile.react-calendar__month-view__days__day', { hasText: dayToSelect }).first().click();
 
-    await expect(page.locator('[name="date"]')).toHaveValue('2024-09-30');
-})
+    await expect(page.locator('[name="date"]')).toHaveValue(formattedDate);
+});

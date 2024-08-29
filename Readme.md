@@ -18,5 +18,6 @@ Before you get started, make sure you have the following:
 ## 🧪 Available Tests
 
 - [Checkout Flow Test](https://github.com/DanielRamos84/playwright-learning-project/tree/test/checkout-flow)
+- [Calendar Dropdown Test](https://github.com/DanielRamos84/playwright-learning-project/tree/test/calendar-dropdown)
 
 ⚙️ *More tests are on the way, stay tuned!*

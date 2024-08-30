@@ -1,24 +1,31 @@
-# 🚀 Playwright Learning Project
+## 🔐 Authentication Setup
 
-Welcome to the **Playwright Learning Project**! This repository is designed to help you explore and experiment with Playwright using an e-commerce website. Whether you're a beginner or looking to sharpen your skills, you'll find this a valuable resource.
+Authentication is managed through a streamlined process:
+- **API Request:** The user logs in by sending a secure request to the application's API.
+- **State Management:** The authentication session is saved locally, allowing it to be reused in specific test cases without re-authentication.
 
-🔗 **Live Site**: [Rahul Shetty Academy E-commerce Website](https://rahulshettyacademy.com/client)
+---
 
-## 🎯 Prerequisites
+## 🌱 Environment Variables
 
-Before you get started, make sure you have the following:
+To keep sensitive information safe, credentials are stored in an `.env` file. This approach ensures that:
+- **Security**: Your credentials are protected and not hard-coded into the scripts.
+- **Flexibility**: Easily update or change credentials without modifying the test code.
 
-- **Node.js**: Version 14 or higher installed.
-- **Playwright**: Install it via npm:  
-  ```bash
-  npm install @playwright/test
-  ```
-- **Website Access**: You'll need access to the e-commerce site to run the tests. Visit [this link](https://rahulshettyacademy.com/client) to check it out.
+---
 
-## 🧪 Available Tests
+## 🧩 Test Workflow
 
-- [Checkout Flow](https://github.com/DanielRamos84/playwright-learning-project/tree/test/checkout-flow)
-- [Calendar Dropdown](https://github.com/DanielRamos84/playwright-learning-project/tree/test/calendar-dropdown)
-- [Alert Dialog](https://github.com/DanielRamos84/playwright-learning-project/tree/test/alert-dialog)
+Each test follows a simple yet effective workflow:
+1. **Authenticate**: Begin by ensuring the user is logged in.
+2. **Navigate**: Move through different sections of the web application.
+3. **Verify**: Check key elements like buttons, links, and text to confirm that they display correctly for an authenticated user.
 
-⚙️ *More tests are on the way...*
+---
+
+## 🎯 Why This Setup?
+
+- **Flexibility**: Each test handles its own authentication, allowing for independent execution.
+- **Robustness**: Tests are isolated from one another, preventing potential conflicts.
+- **Security**: Credentials are stored securely, keeping your setup clean and safe.
+

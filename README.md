@@ -20,5 +20,6 @@ Before you get started, make sure you have the following:
 - [Checkout Flow](https://github.com/DanielRamos84/playwright-learning-project/tree/test/checkout-flow)
 - [Calendar Dropdown](https://github.com/DanielRamos84/playwright-learning-project/tree/test/calendar-dropdown)
 - [Alert Dialog](https://github.com/DanielRamos84/playwright-learning-project/tree/test/alert-dialog)
+- [Login Via API](https://github.com/DanielRamos84/playwright-learning-project/tree/test/login-api)
 
 ⚙️ *More tests are on the way...*

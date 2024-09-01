@@ -18,8 +18,6 @@ This test suite automates:
 - **Comprehensive Cleanup**: Deletes all articles before each test run to ensure consistency.
 - **End-to-End Validation**: Combines API and UI testing for robust verification.
 
-## 🔧 How It Works
-
 ### Setup
 
 - **Login and Token Retrieval**: Logs in via API and retrieves an access token.

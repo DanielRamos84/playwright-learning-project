@@ -1,6 +1,4 @@
-## 🚀 Overview
-
-This project uses Playwright to automate end-to-end testing for a web application, focusing on **user authentication** and verifying the application's behavior for a logged-in user. By managing authentication at the individual test level, this setup provides the flexibility needed for diverse testing scenarios.
+**Testing Site:** [https://conduit.bondaracademy.com/](https://conduit.bondaracademy.com/)
 
 ---
 
@@ -33,7 +31,7 @@ Before running the tests, follow these steps:
    ```
 
    - The `jwtToken` value will be automatically populated when the setup file runs, storing the authentication token.
-  
+
 ## 🌱 Environment Variables
 
 Storing sensitive information, like credentials, in an `.env` file ensures:
@@ -61,6 +59,8 @@ Storing sensitive information, like credentials, in an `.env` file ensures:
 The authentication process is secure and efficient:
 - **API Request:** The user logs in by sending a request to the application's API, using the credentials stored in the `.env` file.
 - **State Management:** The `user.json` file is updated with the authentication token, allowing it to be reused in specific test cases without needing to re-authenticate.
+
+⚠️ Note: Currently, there is an issue where fs isn't writing the token correctly. This leads to test failures in GitHub Actions. Initially, tests were hardcoding the token, which led to a misunderstanding that leaving the token null would result in an update. Unfortunately, this assumption was incorrect. As a temporary solution, tests that rely on this authentication setup are being skipped until the issue is resolved.
 
 ## 🧩 Test Workflow
 

@@ -21,5 +21,6 @@ Before you get started, make sure you have the following:
 - [Calendar Dropdown](https://github.com/DanielRamos84/playwright-learning-project/tree/test/calendar-dropdown)
 - [Alert Dialog](https://github.com/DanielRamos84/playwright-learning-project/tree/test/alert-dialog)
 - [Login API](https://github.com/DanielRamos84/playwright-learning-project/tree/test/login-api)
+- [Working with API](https://github.com/DanielRamos84/playwright-learning-project/tree/test/working-with-api)
 
 ⚙️ *More tests are on the way...*

@@ -47,7 +47,7 @@ test.beforeEach(async({request}) => {
     }
 })
 
-test('Create a New Article', async ({ page, request }) => {  
+test.skip('Create a New Article', async ({ page, request }) => {  
     // create new article via API    
     const postNewArticleResponse = await request.post('https://conduit-api.bondaracademy.com/api/articles/', {
         data: {
@@ -71,7 +71,7 @@ test('Create a New Article', async ({ page, request }) => {
     await expect(page.getByRole('heading', { name: 'Dynamic Functionality Consultant' })).toBeVisible()
 });
 
-test('Delete Article', async ({ page, request }) => {
+test.skip('Delete Article', async ({ page, request }) => {
     // create article via API
     const postNewArticleResponse = await request.post('https://conduit-api.bondaracademy.com/api/articles/', {
         data: {

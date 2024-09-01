@@ -39,6 +39,7 @@ This test suite automates:
 
 - **Handling Dynamic URLs**: Managing dynamic content like user-specific URLs (e.g., `Nikita%20Schaefer51`) presents a challenge. Hardcoding such values isn’t ideal, and finding a more flexible solution is necessary for better test scalability and maintainability.
 - **Skipped API Tests**: Currently, the tests rely on shared state by reading the authentication token from `.auth/user.json`. Due to this setup, the API tests are skipped unless the necessary file contents are provided. I'm still working on a way to change this logic to make the tests more self-contained and reliable.
+- **Race Condition in Parallel Execution**: Running tests in parallel can cause race conditions when deleting articles. This sometimes leads to one test failing because it attempts to assert the presence of an article that has already been deleted by another test. Addressing this issue requires synchronization or isolation strategies to ensure test reliability.
 
 ## 🔜 To Be Continued...
 

@@ -1,46 +1,25 @@
-# 📝 Conduit Article Management Test Suite
+# 🚀 Playwright Learning Project
 
-This Playwright test suite demonstrates automated article management on the Conduit platform, tested against [https://conduit.bondaracademy.com](https://conduit.bondaracademy.com). It handles article creation, deletion, and validation using a combination of API requests and UI interactions.
+Welcome to the **Playwright Learning Project**! This repository is designed to help you explore and experiment with Playwright using an e-commerce website. Whether you're a beginner or looking to sharpen your skills, you'll find this a valuable resource.
 
-## 🌟 Overview
+🔗 **Live Site**: [Rahul Shetty Academy E-commerce Website](https://rahulshettyacademy.com/client)
 
-This test suite automates:
+## 🎯 Prerequisites
 
-1. **Authentication**: Secure login via API using environment variables for sensitive data.
-2. **Clean Slate**: Deletes pre-existing articles to ensure a fresh start.
-3. **Article Creation**: Creates a new article via API and verifies its presence on the UI.
-4. **Article Deletion**: Removes the article through the UI and confirms its successful deletion.
+Before you get started, make sure you have the following:
 
-## 🚀 Key Features
+- **Node.js**: Version 14 or higher installed.
+- **Playwright**: Install it via npm:  
+  ```bash
+  npm install @playwright/test
+  ```
+- **Website Access**: You'll need access to the e-commerce site to run the tests. Visit [this link](https://rahulshettyacademy.com/client) to check it out.
 
-- **Environment Variables**: Manages sensitive data securely with `.env` files.
-- **API Integration**: Utilizes Playwright’s API capabilities for efficient test execution.
-- **Comprehensive Cleanup**: Deletes all articles before each test run to ensure consistency.
-- **End-to-End Validation**: Combines API and UI testing for robust verification.
+## 🧪 Available Tests
+- [Checkout Flow](https://github.com/DanielRamos84/playwright-learning-project/tree/test/checkout-flow)
+- [Calendar Dropdown](https://github.com/DanielRamos84/playwright-learning-project/tree/test/calendar-dropdown)
+- [Alert Dialog](https://github.com/DanielRamos84/playwright-learning-project/tree/test/alert-dialog)
+- [Login API](https://github.com/DanielRamos84/playwright-learning-project/tree/test/login-api)
+- [Working with API](https://github.com/DanielRamos84/playwright-learning-project/tree/test/working-with-api)
 
-## 🔧 How It Works
-
-### Setup
-
-- **Login and Token Retrieval**: Logs in via API and retrieves an access token.
-- **Article Cleanup**: Fetches and deletes existing articles to ensure a clean testing environment.
-
-### Tests
-
-1. **Create a New Article**:  
-   - **API**: Sends a POST request to create an article.
-   - **UI**: Navigates to the site and confirms the article’s presence.
-
-2. **Delete Article**:  
-   - **API**: Posts a new article to ensure it's available for deletion.
-   - **UI**: Deletes the article via the UI and verifies it no longer exists.
-
-## ⚠️ Challenges
-
-- **Handling Dynamic URLs**: Managing dynamic content like user-specific URLs (e.g., `Nikita%20Schaefer51`) presents a challenge. Hardcoding such values isn’t ideal, and finding a more flexible solution is necessary for better test scalability and maintainability.
-- **Skipped API Tests**: Currently, the tests rely on shared state by reading the authentication token from `.auth/user.json`. Due to this setup, the API tests are skipped unless the necessary file contents are provided. I'm still working on a way to change this logic to make the tests more self-contained and reliable.
-- **Race Condition in Parallel Execution**: Running tests in parallel can cause race conditions when deleting articles. This sometimes leads to one test failing because it attempts to assert the presence of an article that has already been deleted by another test. Addressing this issue requires synchronization or isolation strategies to ensure test reliability.
-
-## 🔜 To Be Continued...
-
-This is just the beginning! More tests will be added to further enhance the suite and cover additional functionalities on the Conduit platform. Stay tuned for updates.
+⚙️ *More tests are on the way...*

@@ -16,7 +16,6 @@ Before you get started, make sure you have the following:
 - **Website Access**: You'll need access to the e-commerce site to run the tests. Visit [this link](https://rahulshettyacademy.com/client) to check it out.
 
 ## 🧪 Available Tests
-
 - [Checkout Flow](https://github.com/DanielRamos84/playwright-learning-project/tree/test/checkout-flow)
 - [Calendar Dropdown](https://github.com/DanielRamos84/playwright-learning-project/tree/test/calendar-dropdown)
 - [Alert Dialog](https://github.com/DanielRamos84/playwright-learning-project/tree/test/alert-dialog)

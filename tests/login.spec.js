@@ -44,6 +44,8 @@ test('Valid login', async ({ page }) => {
 
     await page.locator('[type="submit"]').click();
 
+    await page.waitForURL('https://rahulshettyacademy.com/angularpractice/shop');
+
     await expect(page).toHaveTitle('ProtoCommerce')
 })
 

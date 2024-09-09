@@ -23,11 +23,14 @@ Before you get started, make sure you have the following:
 Tests in this section focus on interacting with the e-commerce site and a practice login page:
 
 - **Checkout Flow**: Simulate adding products to the cart, proceeding to checkout, and validating the order.
-   - For more details, check out the [Test Checkout Flow Test Suite](https://github.com/DanielRamos84/playwright-learning-project/tree/test/checkout-flow)
-- **Login & Registration via UI**: Test user authentication via the UI on [Rahul Shetty Academy E-commerce Website](https://rahulshettyacademy.com/client).
+
+*For more details, check out the [Test Checkout Flow Test Suite](https://github.com/DanielRamos84/playwright-learning-project/tree/test/checkout-flow)*
+- **Login & Registration via UI**: Test user authentication via the UI on [Rahul Shetty Academy E-commerce 
+Website](https://rahulshettyacademy.com/client).
 - **Login via API**: Direct API testing for login functionalities to streamline testing workflows.
 - **Calendar Dropdown**: Dynamic date selection through a calendar component.
-   - For more details, check out the [Calendar Dropdown Test Suite](https://github.com/DanielRamos84/playwright-learning-project/tree/test/calendar-dropdown))
+
+*For more details, check out the [Calendar Dropdown Test Suite](https://github.com/DanielRamos84/playwright-learning-project/tree/test/calendar-dropdown)*
 - **Miscellaneous Element Interactions**: Covers radio buttons, dropdowns, and checkboxes on [Rahul Shetty Academy Practice Site](http://www.rahulshettyacademy.com/loginpagePractise).
 
 ---
@@ -37,7 +40,7 @@ This test suite is dedicated to alert handling:
 
 - **Alert Dialog Testing**: Tests executed against [LetCode Alert Page](https://letcode.in/alert), validating how alerts, confirmations, and prompts are handled.
 
-- For more details, check out the [Test Alert Dialog Test Suite](https://github.com/DanielRamos84/playwright-learning-project/tree/test/alert-dialog).
+*For more details, check out the [Test Alert Dialog Test Suite](https://github.com/DanielRamos84/playwright-learning-project/tree/test/alert-dialog).*
 
 ---
 
@@ -47,4 +50,4 @@ This suite tests the **Conduit** platform by using Playwright fixtures for state
 - **API Testing with Fixtures**: Use Playwright's fixture to inject authenticated state and mock API responses.
 - **UI Testing in Authenticated State**: After setting up authentication, visit various pages in the **Conduit** app, interacting with content in an authenticated session.
   
-For more details, check out the [Conduit Test Suite](https://github.com/DanielRamos84/playwright-learning-project/tree/test/conduit-app-tests).
+*For more details, check out the [Conduit Test Suite](https://github.com/DanielRamos84/playwright-learning-project/tree/test/conduit-app-tests).*

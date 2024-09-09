@@ -1,26 +1,8 @@
-import { test, expect } from '@playwright/test';
-require('dotenv').config();
-let accessToken;
-test.use({ storageState: 'playwright/.auth/user.json' });
-test.beforeAll(async ({ request }) => {
-  // login via API get token to use in further requests
-  const postAuthorizationResponse = await request.post(
-    'https://conduit-api.bondaracademy.com/api/users/login',
-    {
-      data: {
-        user: {
-          email: process.env.EMAIL,
-          password: process.env.PASSWORD,
-        },
-      },
-    }
-  );
-
-  const responseBody = await postAuthorizationResponse.json();
-  accessToken = responseBody.user.token;
-  expect(postAuthorizationResponse.status()).toEqual(200);
-
-  // get all articles by the user logged in
+import { test } from '../../utils/testFixtures';
+import { expect } from '@playwright/test';
+test.describe.configure({ mode: 'serial' });
+test.beforeAll(async ({ request, accessToken }) => {
+  // Ensure the token is valid and delete any existing articles
   const userArticlesResponse = await request.get(
     'https://conduit-api.bondaracademy.com/api/articles?author=Nikita%20Schaefer51',
     {
@@ -30,10 +12,16 @@ test.beforeAll(async ({ request }) => {
     }
   );
 
+  if (userArticlesResponse.status() === 401) {
+    console.log('Token expired or invalid. Triggering re-authentication...');
+    // Reset the accessToken
+    await test.getFixtures().accessToken({ request }, () => {});
+  }
+
   const userArticles = await userArticlesResponse.json();
   expect(userArticlesResponse.status()).toEqual(200);
 
-  // delete any article if present
+  // Delete any existing articles
   if (userArticles.articles.length > 0) {
     for (const article of userArticles.articles) {
       const deleteResponse = await request.delete(
@@ -54,8 +42,8 @@ test.beforeAll(async ({ request }) => {
     console.log('No articles found for the user.');
   }
 });
-test.skip('Creates Article', async ({ page, request }) => {
-  // create new article via API
+test('Creates Article', async ({ request, accessToken, authenticatedPage }) => {
+  // Create new article via API
   const postNewArticleResponse = await request.post(
     'https://conduit-api.bondaracademy.com/api/articles/',
     {
@@ -76,24 +64,27 @@ test.skip('Creates Article', async ({ page, request }) => {
 
   expect(postNewArticleResponse.status()).toEqual(201);
 
-  // assert article is visible from home page global feed tab
-  await page.goto('https://conduit.bondaracademy.com');
-
-  await page.locator('.article-preview').last().waitFor();
+  // Assert article is visible from home authenticatedPage global feed tab
+  await authenticatedPage.goto('https://conduit.bondaracademy.com');
+  await authenticatedPage.locator('.article-preview').last().waitFor();
   await expect(
-    page.getByRole('heading', { name: /dynamic functionality consultant/i })
+    authenticatedPage.getByRole('heading', {
+      name: /dynamic functionality consultant/i,
+    })
   ).toBeVisible();
 
-  // assert article is visible from home page global feed tab
-  await page.goto(
+  // Assert article is visible from profile authenticatedPage
+  await authenticatedPage.goto(
     'https://conduit.bondaracademy.com/profile/Nikita%20Schaefer51'
   );
-  await page.locator('.article-preview').last().waitFor();
+  await authenticatedPage.locator('.article-preview').last().waitFor();
   await expect(
-    page.getByRole('heading', { name: /dynamic functionality consultant/i })
+    authenticatedPage.getByRole('heading', {
+      name: /dynamic functionality consultant/i,
+    })
   ).toBeVisible();
 });
-test.skip('Delete Article', async ({ page, request }) => {
+test('Delete Article', async ({ request, authenticatedPage, accessToken }) => {
   // create new article via API
   const postNewArticleResponse = await request.post(
     'https://conduit-api.bondaracademy.com/api/articles/',
@@ -117,7 +108,6 @@ test.skip('Delete Article', async ({ page, request }) => {
 
   expect(postNewArticleResponse.status()).toEqual(201);
   const postNewArticleResponseData = await postNewArticleResponse.json();
-  console.log(postNewArticleResponseData.article.slug);
 
   //delete article through api
   const deleteArticleResponse = await request.delete(
@@ -131,21 +121,29 @@ test.skip('Delete Article', async ({ page, request }) => {
 
   expect(deleteArticleResponse.status()).toEqual(204);
 
-  //assert article is not found from home page
-  await page.goto('https://conduit.bondaracademy.com');
+  //assert article is not found from home authenticatedPage
+  await authenticatedPage.goto('https://conduit.bondaracademy.com');
   await expect(
-    page.getByRole('heading', { hasText: /direct applications manager/i })
+    authenticatedPage.getByRole('heading', {
+      hasText: postNewArticleResponseData.article.title,
+    })
   ).not.toBeVisible();
 
-  //assert article is not found from profile page
-  await page.goto(
+  //assert article is not found from profile authenticatedPage
+  await authenticatedPage.goto(
     'https://conduit.bondaracademy.com/profile/Nikita%20Schaefer51'
   );
   await expect(
-    page.getByRole('heading', { hasText: /direct applications manager/i })
+    authenticatedPage.getByRole('heading', {
+      hasText: postNewArticleResponseData.article.title,
+    })
   ).not.toBeVisible();
 });
-test.skip('Mark Article as Favorite', async ({ page, request }) => {
+test('Mark Article as Favorite', async ({
+  request,
+  accessToken,
+  authenticatedPage,
+}) => {
   // create new article via API
   const postNewArticleResponse = await request.post(
     'https://conduit-api.bondaracademy.com/api/articles/',
@@ -167,52 +165,24 @@ test.skip('Mark Article as Favorite', async ({ page, request }) => {
   );
 
   expect(postNewArticleResponse.status()).toEqual(201);
+  const postNewArticleResponseData = await postNewArticleResponse.json();
 
-  // assert article is not marked as favorite from home page
-  await page.goto('https://conduit.bondaracademy.com');
-  await page.locator('.article-preview').last().waitFor();
-  const articleContainer = page.locator('.article-preview', {
-    has: page.locator('h1', { hasText: /future web representative/i }),
+  // assert article is not marked as favorite from home global feed
+  await authenticatedPage.goto('https://conduit.bondaracademy.com');
+  await authenticatedPage.locator('.article-preview').last().waitFor();
+  const articleContainer = authenticatedPage.locator('.article-preview', {
+    has: authenticatedPage.locator('h1', {
+      hasText: postNewArticleResponseData.article.title,
+    }),
   });
   await expect(articleContainer.locator('.pull-xs-right')).toHaveText('0');
 
   // mark article as favorite via API
   const favoriteArticleResponse = await request.post(
-    'https://conduit-api.bondaracademy.com/api/articles/Future-Web-Representative-8414/favorite',
+    `https://conduit-api.bondaracademy.com/api/articles/${postNewArticleResponseData.article.slug}/favorite`,
     {
       data: {
         article: {
-          id: 83262,
-          slug: 'Future-Web-8414',
-          title: 'Future Web',
-          description: 'Ratione alias esse.',
-          body: 'Quasi ad ea natus.',
-          createdAt: '2024-09-03T17:25:46.361Z',
-          updatedAt: '2024-09-03T17:25:46.361Z',
-          authorId: 8414,
-          tagList: [
-            'Nemo molestiae mollitia quisquam possimus dolor accusamus.',
-          ],
-          author: {
-            username: 'Nikita Schaefer51',
-            bio: null,
-            image:
-              'https://conduit-api.bondaracademy.com/images/smiley-cyrus.jpeg',
-            following: false,
-          },
-          favoritedBy: [
-            {
-              id: 8414,
-              email: 'your.email+fakedata57790@emial.com',
-              username: 'Nikita Schaefer51',
-              password:
-                '$2a$10$QDHvAXSsiInMz1OFaS1YwuZuXQSDU8Di6Tg7Xw1EKpVZtRNdgGg4u',
-              image:
-                'https://conduit-api.bondaracademy.com/images/smiley-cyrus.jpeg',
-              bio: null,
-              demo: false,
-            },
-          ],
           favorited: true,
           favoritesCount: 1,
         },
@@ -225,19 +195,23 @@ test.skip('Mark Article as Favorite', async ({ page, request }) => {
 
   expect(favoriteArticleResponse.status()).toEqual(200);
 
-  // assert article is marked as favorite from home page
-  await page.goto('https://conduit.bondaracademy.com');
-  await page.locator('.article-preview').last().waitFor();
+  // assert article is marked as favorite from home authenticatedPage
+  await authenticatedPage.goto('https://conduit.bondaracademy.com');
+  await authenticatedPage.locator('.article-preview').last().waitFor();
   await expect(articleContainer.locator('.pull-xs-right')).toHaveText('1');
 
-  // assert article is marked as favorite from profile page
-  await page.goto(
+  // assert article is marked as favorite from profile authenticatedPage
+  await authenticatedPage.goto(
     'https://conduit.bondaracademy.com/profile/Nikita%20Schaefer51'
   );
-  await page.locator('.article-preview').last().waitFor();
+  await authenticatedPage.locator('.article-preview').last().waitFor();
   await expect(articleContainer.locator('.pull-xs-right')).toHaveText('1');
 });
-test.skip('Post Comment on Personal Article', async ({ page, request }) => {
+test('Post Comment on Personal Article', async ({
+  request,
+  accessToken,
+  authenticatedPage,
+}) => {
   // create new article via API
   const postNewArticleResponse = await request.post(
     'https://conduit-api.bondaracademy.com/api/articles/',
@@ -283,23 +257,26 @@ test.skip('Post Comment on Personal Article', async ({ page, request }) => {
   const commentJson = await commentOwnArticleResponse.json();
   const comment = commentJson.comment.body;
 
-  await page.goto(`https://conduit.bondaracademy.com/article/${articleSlug}`);
+  await authenticatedPage.goto(
+    `https://conduit.bondaracademy.com/article/${articleSlug}`
+  );
 
   // iterate over card containers in case there's more than one find the matching one
-  await page.locator('[class="card"]').waitFor();
-  const commentCards = page.locator('[class="card"]');
+  await authenticatedPage.locator('[class="card"]').waitFor();
+  const commentCards = authenticatedPage.locator('[class="card"]');
   const commentCardsCount = await commentCards.count();
 
   for (let i = 0; i < commentCardsCount; i++) {
     let text = await commentCards.nth(i).locator('.card-text').textContent();
     if (text.includes(comment)) {
-      // assert author and date
+      // assert author
+      //TODO: function or logic to assert dynamic date
       await expect(
         commentCards.nth(i).getByRole('link', { name: userName })
       ).toHaveText(userName);
-      await expect(commentCards.nth(i).locator('.date-posted')).toHaveText(
-        'September 4, 2024'
-      );
+      // await expect(commentCards.nth(i).locator('.date-posted')).toHaveText(
+      //   'September 4, 2024'
+      // ); need to assert dynamic date with correct format
     } else {
       console.log('No matching comment found');
       break;

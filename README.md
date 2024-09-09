@@ -50,4 +50,4 @@ This suite tests the **Conduit** platform by using Playwright fixtures for state
 - **API Testing with Fixtures**: Use Playwright's fixture to inject authenticated state and mock API responses.
 - **UI Testing in Authenticated State**: After setting up authentication, visit various pages in the **Conduit** app, interacting with content in an authenticated session.
   
-*For more details, check out the [Conduit Test Suite](https://github.com/DanielRamos84/playwright-learning-project/tree/test/conduit-app-tests).*
+*For more details, check out the [Conduit Test Suite](https://github.com/DanielRamos84/playwright-learning-project/tree/test/working-with-api).*

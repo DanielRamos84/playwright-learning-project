@@ -1,6 +1,6 @@
 # 🛒 Checkout Process Test
 
-Welcome to the **Checkout Process Test** documentation! This section outlines the steps taken to automate the checkout flow on an e-commerce website.
+This Playwright test suite automates a complete e-commerce checkout flow on the [Rahul Shetty Academy](https://rahulshettyacademy.com/client) website, covering everything from user login to order confirmation. It ensures that the purchase process runs smoothly by verifying product selection, payment information, coupon application, and order validation.
 
 ## 🚦 Test Steps Overview
 
@@ -24,10 +24,3 @@ Welcome to the **Checkout Process Test** documentation! This section outlines th
 - **Secure Credentials Management**
     - Currently, test credentials are hardcoded in the test script. For better security, we'll move these credentials to a separate configuration file or environment variables in an upcoming update. This will enhance both security and maintainability.
 
-## 🔧 Troubleshooting Flaky Tests
-
-- **Parallel Test Execution Issues**
-    - Running tests in parallel has occasionally led to inconsistent results. We are investigating the root causes and exploring solutions, including:
-        - Ensuring test data is isolated across parallel test runs.
-        - Implementing proper waits or retries to handle asynchronous operations more reliably.
-        - Reviewing and optimizing the test environment to support smooth parallel execution without conflicts.

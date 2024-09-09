@@ -1,89 +1,50 @@
-# 📝 Conduit Article Management Test Suite
+# 🚀 Playwright Learning Project
 
-This Playwright test suite demonstrates automated article management on the Conduit platform, tested against [https://conduit.bondaracademy.com](https://conduit.bondaracademy.com). It handles article creation, deletion, validation, and includes additional tests for mocking API responses. The suite ensures comprehensive coverage by combining API requests and UI interactions.
+Welcome to the **Playwright Learning Project**! This repository is designed to help you explore and experiment with Playwright across various web applications.
 
-## 🌟 Overview
+🔗 **Live Site**: [Rahul Shetty Academy E-commerce Website](https://rahulshettyacademy.com/client)
 
-This test suite automates:
+## 🎯 Prerequisites
 
-1. **Authentication**: Secure login via API using environment variables for sensitive data.
-2. **Clean Slate**: Deletes pre-existing articles to ensure a fresh start.
-3. **Article Creation**: Creates a new article via API and verifies its presence on the UI.
-4. **Article Deletion**: Removes the article through the UI and confirms its successful deletion.
-5. **Mocking API Responses**: Includes tests for mocking various API responses to validate the handling of dynamic content and empty states.
+Before you get started, make sure you have the following:
 
-## 🚀 Key Features
+- **Node.js**: Version 14 or higher installed.
+- **Playwright**: Install it via npm:  
+  ```bash
+  npm install @playwright/test
+  ```
+- **Website Access**: You'll need access to the respective websites to run the tests.
 
-- **Environment Variables**: Manages sensitive data securely with `.env` files.
-- **API Integration**: Utilizes Playwright’s API capabilities for efficient test execution.
-- **Comprehensive Cleanup**: Deletes all articles before each test run to ensure consistency.
-- **End-to-End Validation**: Combines API and UI testing for robust verification.
+---
 
-## 🔧 How It Works
+## 🧪 Test Suites
 
-### Setup
+### 1️⃣ **E-commerce & UI Testing on Rahul Shetty Academy**
+Tests in this section focus on interacting with the e-commerce site and a practice login page:
 
-- **Login and Token Retrieval**: Logs in via API and retrieves an access token.
-- **Article Cleanup**: Fetches and deletes existing articles to ensure a clean testing environment.
+- **Checkout Flow**: Simulate adding products to the cart, proceeding to checkout, and validating the order.
+   - For more details, check out the [Test Checkout Flow Test Suite](https://github.com/DanielRamos84/playwright-learning-project/tree/test/checkout-flow)
+- **Login & Registration via UI**: Test user authentication via the UI on [Rahul Shetty Academy E-commerce Website](https://rahulshettyacademy.com/client).
+- **Login via API**: Direct API testing for login functionalities to streamline testing workflows.
+- **Calendar Dropdown**: Dynamic date selection through a calendar component.
+   - For more details, check out the [Calendar Dropdown Test Suite](https://github.com/DanielRamos84/playwright-learning-project/tree/test/calendar-dropdown))
+- **Miscellaneous Element Interactions**: Covers radio buttons, dropdowns, and checkboxes on [Rahul Shetty Academy Practice Site](http://www.rahulshettyacademy.com/loginpagePractise).
 
-### Tests
+---
 
-1. **Create a New Article**  
-   - **Description**: This test creates a new article via the API and verifies that it is visible on the home page and the user's profile page.
-   - **API Endpoint**: POST /api/articles
-   - **Assertions**: Checks if the article is visible on the home page and the profile page.
+### 2️⃣ **Alert Handling on LetCode**
+This test suite is dedicated to alert handling:
 
-2. **Delete Article**  
-   - **Description**: This test creates a new article via the API, deletes it, and verifies that it is no longer visible on the home page and the user's profile page.
-   - **API Endpoint**: DELETE /api/articles/{slug}
-   - **Assertions**: Checks if the article is not visible on the home page and the profile page after deletion.
+- **Alert Dialog Testing**: Tests executed against [LetCode Alert Page](https://letcode.in/alert), validating how alerts, confirmations, and prompts are handled.
 
-3. **Mark Article as Favorite**  
-   - **Description**: This test creates a new article via the API, marks it as favorite, and verifies that the favorite count is updated on the home page and the user's profile page.
-   - **API Endpoint**: POST /api/articles/{slug}/favorite
-   - **Assertions**: Checks if the favorite count is updated on the home page and the profile page.
+- For more details, check out the [Test Alert Dialog Test Suite](https://github.com/DanielRamos84/playwright-learning-project/tree/test/alert-dialog).
 
-4. **Post Comment on Personal Article**  
-   - **Description**: This test creates a new article via the API, posts a comment on it, and verifies that the comment is visible on the article page.
-   - **API Endpoint**: POST /api/articles/{slug}/comments
-   - **Assertions**: Checks if the comment is visible on the article page with the correct author and date.
+---
 
-5. **Delete Comment on Personal Article**  
-   - **Description**: This test creates a new article via the API, posts a comment on it, deletes the comment, and verifies that the comment is no longer visible on the article page.
-   - **API Endpoint**: DELETE /api/articles/{slug}/comments/{id}
-   - **Assertions**: Checks if the comment is not visible on the article page after deletion.
+### 3️⃣ **Conduit App Tests with Playwright Fixtures**
+This suite tests the **Conduit** platform by using Playwright fixtures for stateful authentication:
 
-6. **Mock Articles Global Feed Page**  
-   - **Description**: This test mocks the global feed articles API and verifies that the articles are displayed correctly on the page.
-   - **Mocked API**: **/api/articles?limit=*&offset=***
-   - **Assertions**: Checks if the titles of the articles match the mock data.
-
-7. **Empty Mock Global Feed Page**  
-   - **Description**: This test mocks an empty response for the global feed articles API and verifies that the "no articles are here... yet." message is displayed.
-   - **Mocked API**: **/api/articles?limit=*&offset=***
-   - **Assertions**: Checks if the "no articles are here... yet." message is displayed.
-
-8. **Mock Articles Your Feed Page**  
-   - **Description**: This test mocks the "Your Feed" articles API and verifies that the articles are displayed correctly on the page.
-   - **Mocked API**: **/api/articles/feed?limit=*&offset=***
-   - **Assertions**: Checks if the titles of the articles match the mock data.
-
-9. **Empty Mock Your Feed Page**  
-   - **Description**: This test mocks an empty response for the "Your Feed" articles API and verifies that the "no articles are here... yet." message is displayed.
-   - **Mocked API**: **/api/articles/feed?limit=*&offset=***
-   - **Assertions**: Checks if the "no articles are here... yet." message is displayed.
-
-10. **Mock Tags**  
-    - **Description**: This test mocks the tags API and verifies that the tags are displayed correctly in the sidebar.
-    - **Mocked API**: **/api/tags**
-    - **Assertions**: Checks if the tags in the sidebar match the mock data.
-
-## ⚠️ Challenges
-
-- **Handling Dynamic URLs**: Managing dynamic content like user-specific URLs (e.g., `Nikita%20Schaefer51`) presents a challenge. Hardcoding such values isn’t ideal, and finding a more flexible solution is necessary for better test scalability and maintainability.
-- **Skipped API Tests**: Currently, the tests rely on shared state by reading the authentication token from `.auth/user.json`. Due to this setup, the API tests are skipped unless the necessary file contents are provided. I'm still working on a way to change this logic to make the tests more self-contained and reliable.
-- **Race Condition in Parallel Execution**: Running tests in parallel can cause race conditions when deleting articles. This sometimes leads to one test failing because it attempts to assert the presence of an article that has already been deleted by another test. Addressing this issue requires synchronization or isolation strategies to ensure test reliability.
-
-## 🔜 To Be Continued...
-
-This is just the beginning! More tests will be added to further enhance the suite and cover additional functionalities on the Conduit platform. Stay tuned for updates.
+- **API Testing with Fixtures**: Use Playwright's fixture to inject authenticated state and mock API responses.
+- **UI Testing in Authenticated State**: After setting up authentication, visit various pages in the **Conduit** app, interacting with content in an authenticated session.
+  
+For more details, check out the [Conduit Test Suite](https://github.com/DanielRamos84/playwright-learning-project/tree/test/conduit-app-tests).

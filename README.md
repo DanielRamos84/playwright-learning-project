@@ -6,7 +6,7 @@ This Playwright test suite demonstrates automated article management on the Cond
 
 This test suite automates:
 
-1. **Authentication**: Secure login via API using environment variables for sensitive data.
+1. **Authentication**: Secure login via API using GitHub secrets in the `.yml` configuration file to handle sensitive data.
 2. **Clean Slate**: Deletes pre-existing articles to ensure a fresh start.
 3. **Article Creation**: Creates a new article via API and verifies its presence on the UI.
 4. **Article Deletion**: Removes the article through the UI and confirms its successful deletion.
@@ -14,7 +14,7 @@ This test suite automates:
 
 ## 🚀 Key Features
 
-- **Environment Variables**: Manages sensitive data securely with `.env` files.
+- **GitHub Secrets**: Manages sensitive data securely using secrets stored in GitHub Actions `.yml` files.
 - **API Integration**: Utilizes Playwright’s API capabilities for efficient test execution.
 - **Comprehensive Cleanup**: Deletes all articles before each test run to ensure consistency.
 - **End-to-End Validation**: Combines API and UI testing for robust verification.
@@ -55,35 +55,32 @@ This test suite automates:
 
 6. **Mock Articles Global Feed Page**  
    - **Description**: This test mocks the global feed articles API and verifies that the articles are displayed correctly on the page.
-   - **Mocked API**: **/api/articles?limit=*&offset=***
+   - **Mocked API**: **/api/articles?limit=*&offset=***  
    - **Assertions**: Checks if the titles of the articles match the mock data.
 
 7. **Empty Mock Global Feed Page**  
    - **Description**: This test mocks an empty response for the global feed articles API and verifies that the "no articles are here... yet." message is displayed.
-   - **Mocked API**: **/api/articles?limit=*&offset=***
+   - **Mocked API**: **/api/articles?limit=*&offset=***  
    - **Assertions**: Checks if the "no articles are here... yet." message is displayed.
 
 8. **Mock Articles Your Feed Page**  
    - **Description**: This test mocks the "Your Feed" articles API and verifies that the articles are displayed correctly on the page.
-   - **Mocked API**: **/api/articles/feed?limit=*&offset=***
+   - **Mocked API**: **/api/articles/feed?limit=*&offset=***  
    - **Assertions**: Checks if the titles of the articles match the mock data.
 
 9. **Empty Mock Your Feed Page**  
    - **Description**: This test mocks an empty response for the "Your Feed" articles API and verifies that the "no articles are here... yet." message is displayed.
-   - **Mocked API**: **/api/articles/feed?limit=*&offset=***
+   - **Mocked API**: **/api/articles/feed?limit=*&offset=***  
    - **Assertions**: Checks if the "no articles are here... yet." message is displayed.
 
 10. **Mock Tags**  
     - **Description**: This test mocks the tags API and verifies that the tags are displayed correctly in the sidebar.
-    - **Mocked API**: **/api/tags**
+    - **Mocked API**: **/api/tags**  
     - **Assertions**: Checks if the tags in the sidebar match the mock data.
 
 ## ⚠️ Challenges
 
 - **Handling Dynamic URLs**: Managing dynamic content like user-specific URLs (e.g., `Nikita%20Schaefer51`) presents a challenge. Hardcoding such values isn’t ideal, and finding a more flexible solution is necessary for better test scalability and maintainability.
-- **Skipped API Tests**: Currently, the tests rely on shared state by reading the authentication token from `.auth/user.json`. Due to this setup, the API tests are skipped unless the necessary file contents are provided. I'm still working on a way to change this logic to make the tests more self-contained and reliable.
 - **Race Condition in Parallel Execution**: Running tests in parallel can cause race conditions when deleting articles. This sometimes leads to one test failing because it attempts to assert the presence of an article that has already been deleted by another test. Addressing this issue requires synchronization or isolation strategies to ensure test reliability.
 
 ## 🔜 To Be Continued...
-
-This is just the beginning! More tests will be added to further enhance the suite and cover additional functionalities on the Conduit platform. Stay tuned for updates.

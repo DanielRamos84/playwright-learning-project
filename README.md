@@ -51,3 +51,13 @@ This suite tests the **Conduit** platform by using Playwright fixtures for state
 - **UI Testing in Authenticated State**: After setting up authentication, visit various pages in the **Conduit** app, interacting with content in an authenticated session.
   
 *For more details, check out the [Conduit Test Suite](https://github.com/DanielRamos84/playwright-learning-project/tree/test/working-with-api).*
+
+---
+
+### 4️⃣ POM Test Suite with Centralized Imports  
+This suite leverages Page Object Models (POMs) for efficient test organization:
+
+- Centralized POMs: Access all POMs in any test file without redundant instantiation, improving code readability and reducing boilerplate.
+- Extended Base Test: Uses an extended base setup, sharing page navigation across multiple tests.
+
+*For more details, check out the [POM Test Suite](https://github.com/DanielRamos84/playwright-learning-project/tree/test/work-with-page-objects).*

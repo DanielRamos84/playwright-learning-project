@@ -1,13 +1,6 @@
 import { test as baseTest, expect as baseExpect } from '@playwright/test';
+import { PageObjectManager } from './pageObjectManager';
 import * as dotenv from 'dotenv';
-import { NavigationPage } from '../page-objects/general/navigationPage';
-import { BrowserWindowsPage } from '../page-objects/alerts-frame-windows/browserWindowsPage';
-import { BookStoreLoginPage } from '../page-objects/book-store-application/bookStoreLoginPage';
-import { CheckboxPage } from '../page-objects/checkBox/checkBoxPage';
-import { TextBoxPage } from '../page-objects/elements/textBoxPage';
-import { PracticeFormPage } from '../page-objects/forms/practiceFormPage';
-import { SortablePage } from '../page-objects/interactions/sortablePage';
-import { AccordianPage } from '../page-objects/widget/accordianPage';
 dotenv.config();
 export const expect = baseExpect;
 
@@ -15,14 +8,7 @@ export const expect = baseExpect;
 export const test = baseTest.extend<{
   authenticatedPage: any;
   accessToken: string;
-  browserWindowsPage: BrowserWindowsPage;
-  bookStoreLoginPage: BookStoreLoginPage;
-  checkBoxPage: CheckboxPage;
-  textBoxPage: TextBoxPage;
-  practiceFormPage: PracticeFormPage;
-  navigationPage: NavigationPage;
-  sortablePage: SortablePage;
-  accordianPage: AccordianPage;
+  pageObjectManager: PageObjectManager;
 }>({
   // Define 'accessToken' fixture
   accessToken: async ({ request }, use) => {
@@ -54,7 +40,13 @@ export const test = baseTest.extend<{
     // Provide the token to the test
     await use(token);
   },
+  // POM PageObjectManager fixture
+  pageObjectManager: async ({ page }, use) => {
+    // const pm = new PageObjectManager(page);
+    // await use(pm);
 
+    await use (new PageObjectManager(page))
+  },
   // Define 'authenticatedPage' fixture
   authenticatedPage: async ({ page, accessToken }, use) => {
     if (accessToken) {
@@ -68,37 +60,5 @@ export const test = baseTest.extend<{
 
     // Provide the authenticated page to the test
     await use(page);
-  },
-  // POM BrowserWindowsPage fixture
-  browserWindowsPage: async ({ page }, use) => {
-    await use(new BrowserWindowsPage(page));
-  },
-  // POM BooksStoreLoginPage fixture
-  bookStoreLoginPage: async ({ page }, use) => {
-    await use(new BookStoreLoginPage(page));
-  },
-  // POM CheckboxPage fixture
-  checkBoxPage: async ({ page }, use) => {
-    await use(new CheckboxPage(page));
-  },
-  // POM TextBoxPage fixture
-  textBoxPage: async ({ page }, use) => {
-    await use(new TextBoxPage(page));
-  },
-  // POM PracticeFormPage fixture
-  practiceFormPage: async ({ page }, use) => {
-    await use(new PracticeFormPage(page));
-  },
-  // POM NavigationPage fixture
-  navigationPage: async ({ page }, use) => {
-    await use(new NavigationPage(page));
-  },
-  // POM SortablePage fixture
-  sortablePage: async ({ page }, use) => {
-    await use(new SortablePage(page));
-  },
-  // POM AccordianPage fixture
-  accordianPage: async ({ page }, use) => {
-    await use(new AccordianPage(page));
   },
 });

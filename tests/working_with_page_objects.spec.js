@@ -3,27 +3,20 @@ import { faker } from '@faker-js/faker';
 test.beforeEach(async ({ page }) => {
   await page.goto('https://demoqa.com/', { waitUntil: 'commit' });
 });
-test('Submits Text Box Page Form', async ({
-  page,
-  navigationPage,
-  textBoxPage,
-}) => {
+test('Submits Text Box Page Form', async ({ page, pageObjectManager }) => {
   // Generate random data
   const firstName = faker.person.firstName();
   const email = faker.internet.email();
   const currentAddress = faker.location.streetAddress();
   const permanentAddress = faker.location.streetAddress();
 
-  await navigationPage.textBoxPage();
-  await expect(textBoxPage.header()).toBeVisible();
+  await pageObjectManager.navigateTo().textBoxPage();
+  await expect(pageObjectManager.textBoxMainPage().header()).toBeVisible();
 
   // Fill out the form with random data
-  await textBoxPage.fillOutForm(
-    firstName,
-    email,
-    currentAddress,
-    permanentAddress
-  );
+  await pageObjectManager
+    .textBoxMainPage()
+    .fillOutForm(firstName, email, currentAddress, permanentAddress);
 
   // Assert input data is rendered in the DOM
   await expect(page.locator('#name')).toHaveText(`Name:${firstName}`);
@@ -37,8 +30,7 @@ test('Submits Text Box Page Form', async ({
 });
 test('Selects All Checkboxes in Checkbox Page', async ({
   page,
-  navigationPage,
-  checkBoxPage,
+  pageObjectManager,
 }) => {
   const checkBoxLabelsText = [
     'home',
@@ -60,11 +52,13 @@ test('Selects All Checkboxes in Checkbox Page', async ({
     'excelFile',
   ];
 
-  await navigationPage.checkBoxPage();
-  await expect(checkBoxPage.header()).toBeVisible();
+  await pageObjectManager.navigateTo().checkBoxPage();
+  await expect(pageObjectManager.checkBoxMainPage().header()).toBeVisible();
 
-  await checkBoxPage.checkbox('home').click();
-  await expect(checkBoxPage.checkbox('home')).toBeChecked();
+  await pageObjectManager.checkBoxMainPage().checkbox('home').click();
+  await expect(
+    pageObjectManager.checkBoxMainPage().checkbox('home')
+  ).toBeChecked();
 
   //assert expected text for labels selected is shown in the DOM
   for (const label of checkBoxLabelsText) {
@@ -72,9 +66,11 @@ test('Selects All Checkboxes in Checkbox Page', async ({
   }
 
   // Expand all and assert all checkboxes are selected
-  await checkBoxPage.expandAllButton().click();
+  await pageObjectManager.checkBoxMainPage().expandAllButton().click();
 
-  const checkboxesLocator = checkBoxPage.checkboxLocator();
+  const checkboxesLocator = pageObjectManager
+    .checkBoxMainPage()
+    .checkboxLocator();
   const checkboxCount = await checkboxesLocator.count();
 
   for (let i = 0; i < checkboxCount; i++) {
@@ -83,27 +79,27 @@ test('Selects All Checkboxes in Checkbox Page', async ({
     expect(isChecked).toBe(true);
   }
 });
-test('Forms Page', async ({ page, navigationPage, practiceFormPage }) => {
-  await navigationPage.practiceFormPage();
-  await expect(practiceFormPage.header()).toBeVisible();
+test('Forms Page', async ({ pageObjectManager }) => {
+  await pageObjectManager.navigateTo().practiceFormPage();
+  await expect(pageObjectManager.practiceFormMainPage().header()).toBeVisible();
 });
-test('Alerts Page', async ({ page, navigationPage, browserWindowsPage }) => {
-  await navigationPage.browserWindows();
-  await expect(browserWindowsPage.header()).toBeVisible();
+test('Alerts Page', async ({ pageObjectManager }) => {
+  await pageObjectManager.navigateTo().browserWindows();
+  await expect(
+    pageObjectManager.browserWindowsMainPage().header()
+  ).toBeVisible();
 });
-test('Widgets Page', async ({ page, navigationPage, accordianPage }) => {
-  await navigationPage.accordianPage();
-  await expect(accordianPage.header()).toBeVisible();
+test('Widgets Page', async ({ pageObjectManager }) => {
+  await pageObjectManager.navigateTo().accordianPage();
+  await expect(pageObjectManager.accordianMainPage().header()).toBeVisible();
 });
-test('Interactions Page', async ({ page, navigationPage, sortablePage }) => {
-  await navigationPage.sortablePage();
-  await expect(sortablePage.header()).toBeVisible();
+test('Interactions Page', async ({ pageObjectManager }) => {
+  await pageObjectManager.navigateTo().sortablePage();
+  await expect(pageObjectManager.sortableMainPage().header()).toBeVisible();
 });
-test('Book Store Application Page', async ({
-  page,
-  navigationPage,
-  bookStoreLoginPage,
-}) => {
-  await navigationPage.bookStoreLoginPage();
-  await expect(bookStoreLoginPage.header()).toBeVisible();
+test('Book Store Application Page', async ({ pageObjectManager }) => {
+  await pageObjectManager.navigateTo().bookStoreLoginPage();
+  await expect(
+    pageObjectManager.bookStoreLoginMainPage().header()
+  ).toBeVisible();
 });

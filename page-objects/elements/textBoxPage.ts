@@ -1,5 +1,8 @@
+import { Page } from '@playwright/test';
+
 export class TextBoxPage {
-  constructor(page) {
+  private page: Page;
+  constructor(page: Page) {
     this.page = page;
   }
 
@@ -7,7 +10,12 @@ export class TextBoxPage {
     return this.page.getByRole('heading', { name: /text box/i });
   }
 
-  async fillOutForm(firstName, email, currentAddress, permanentAddress) {
+  async fillOutForm(
+    firstName: string,
+    email: string,
+    currentAddress: string,
+    permanentAddress: string
+  ) {
     await this.page
       .getByRole('textbox', { name: /full name/i })
       .fill(firstName);

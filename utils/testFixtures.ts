@@ -45,7 +45,7 @@ export const test = baseTest.extend<{
     // const pm = new PageObjectManager(page);
     // await use(pm);
 
-    await use (new PageObjectManager(page))
+    await use(new PageObjectManager(page));
   },
   // Define 'authenticatedPage' fixture
   authenticatedPage: async ({ page, accessToken }, use) => {

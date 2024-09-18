@@ -65,7 +65,7 @@ test('Creates Article', async ({ request, accessToken, authenticatedPage }) => {
   expect(postNewArticleResponse.status()).toEqual(201);
 
   // Assert article is visible from home authenticatedPage global feed tab
-  await authenticatedPage.goto('https://conduit.bondaracademy.com');
+  await authenticatedPage.goto('https://conduit.bondaracademy.com', { waitUntil: 'commit' });
   await authenticatedPage.locator('.article-preview').last().waitFor();
   await expect(
     authenticatedPage.getByRole('heading', {
@@ -75,7 +75,7 @@ test('Creates Article', async ({ request, accessToken, authenticatedPage }) => {
 
   // Assert article is visible from profile authenticatedPage
   await authenticatedPage.goto(
-    'https://conduit.bondaracademy.com/profile/Nikita%20Schaefer51'
+    'https://conduit.bondaracademy.com/profile/Nikita%20Schaefer51', { waitUntil: 'commit' }
   );
   await authenticatedPage.locator('.article-preview').last().waitFor();
   await expect(
@@ -122,7 +122,7 @@ test('Delete Article', async ({ request, authenticatedPage, accessToken }) => {
   expect(deleteArticleResponse.status()).toEqual(204);
 
   //assert article is not found from home authenticatedPage
-  await authenticatedPage.goto('https://conduit.bondaracademy.com');
+  await authenticatedPage.goto('https://conduit.bondaracademy.com', { waitUntil: 'commit' });
   await expect(
     authenticatedPage.getByRole('heading', {
       hasText: postNewArticleResponseData.article.title,
@@ -131,7 +131,7 @@ test('Delete Article', async ({ request, authenticatedPage, accessToken }) => {
 
   //assert article is not found from profile authenticatedPage
   await authenticatedPage.goto(
-    'https://conduit.bondaracademy.com/profile/Nikita%20Schaefer51'
+    'https://conduit.bondaracademy.com/profile/Nikita%20Schaefer51', { waitUntil: 'commit' }
   );
   await expect(
     authenticatedPage.getByRole('heading', {
@@ -168,7 +168,7 @@ test('Mark Article as Favorite', async ({
   const postNewArticleResponseData = await postNewArticleResponse.json();
 
   // assert article is not marked as favorite from home global feed
-  await authenticatedPage.goto('https://conduit.bondaracademy.com');
+  await authenticatedPage.goto('https://conduit.bondaracademy.com', { waitUntil: 'commit' });
   await authenticatedPage.locator('.article-preview').last().waitFor();
   const articleContainer = authenticatedPage.locator('.article-preview', {
     has: authenticatedPage.locator('h1', {
@@ -196,13 +196,13 @@ test('Mark Article as Favorite', async ({
   expect(favoriteArticleResponse.status()).toEqual(200);
 
   // assert article is marked as favorite from home authenticatedPage
-  await authenticatedPage.goto('https://conduit.bondaracademy.com');
+  await authenticatedPage.goto('https://conduit.bondaracademy.com', { waitUntil: 'commit' });
   await authenticatedPage.locator('.article-preview').last().waitFor();
   await expect(articleContainer.locator('.pull-xs-right')).toHaveText('1');
 
   // assert article is marked as favorite from profile authenticatedPage
   await authenticatedPage.goto(
-    'https://conduit.bondaracademy.com/profile/Nikita%20Schaefer51'
+    'https://conduit.bondaracademy.com/profile/Nikita%20Schaefer51', { waitUntil: 'commit' }
   );
   await authenticatedPage.locator('.article-preview').last().waitFor();
   await expect(articleContainer.locator('.pull-xs-right')).toHaveText('1');
@@ -258,7 +258,7 @@ test('Post Comment on Personal Article', async ({
   const comment = commentJson.comment.body;
 
   await authenticatedPage.goto(
-    `https://conduit.bondaracademy.com/article/${articleSlug}`
+    `https://conduit.bondaracademy.com/article/${articleSlug}`, { waitUntil: 'commit' }
   );
 
   // iterate over card containers in case there's more than one find the matching one

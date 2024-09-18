@@ -1,5 +1,8 @@
+import { Page } from '@playwright/test';
+
 export class NavigationPage {
-  constructor(page) {
+  private page: Page;
+  constructor(page: Page) {
     this.page = page;
   }
 

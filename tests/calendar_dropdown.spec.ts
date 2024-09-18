@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 test.beforeEach(async ({ page }) => {
-    await page.goto('https://rahulshettyacademy.com/seleniumPractise/#/offers');
+    await page.goto('https://rahulshettyacademy.com/seleniumPractise/#/offers', { waitUntil: 'commit' });
 })
 test('Set Calendar Date Using Keyboard', async ({ page }) => {
     function getCurrentDate() {
@@ -27,7 +27,7 @@ test('Set Calendar Date Using Keyboard', async ({ page }) => {
 test('Set Calendar Date Using Modal', async ({ page }) => {
     function getCurrentMonthYear() {
         let today = new Date();
-        let options = { month: 'long', year: 'numeric' };
+        let options: Intl.DateTimeFormatOptions = { month: 'long', year: 'numeric' };
         return today.toLocaleDateString('en-US', options);
     }
 

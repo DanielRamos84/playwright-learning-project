@@ -1,5 +1,7 @@
+import { Page } from '@playwright/test'
 export class CheckboxPage {
-  constructor(page) {
+  private page: Page;
+  constructor(page: Page) {
     this.page = page;
   }
 

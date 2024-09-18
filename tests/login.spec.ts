@@ -8,7 +8,7 @@ test('Creating context for browser in case you need to inject something to the b
   const context = await browser.newContext();
   // crate a new pristine page in a pristine context
   const page = await context.newPage();
-  await page.goto('https://playwright.dev/');
+  await page.goto('https://playwright.dev/', { waitUntil: 'commit' });
 
   await expect(page).toHaveTitle(
     'Fast and reliable end-to-end testing for modern web apps | Playwright'
@@ -18,13 +18,15 @@ test('Creating context for browser in case you need to inject something to the b
 test('Use page fixture - not injecting cookies, plugins or proxy', async ({
   page,
 }) => {
-  await page.goto('https://google.com');
+  await page.goto('https://google.com', { waitUntil: 'commit' });
 
   await expect(page).toHaveTitle('Google');
 });
 
 test('Incorrect username / password', async ({ page }) => {
-  await page.goto('http://www.rahulshettyacademy.com/loginpagePractise');
+  await page.goto('http://www.rahulshettyacademy.com/loginpagePractise', {
+    waitUntil: 'commit',
+  });
 
   await expect(page).toHaveTitle('LoginPage Practise | Rahul Shetty Academy');
 
@@ -42,7 +44,9 @@ test('Incorrect username / password', async ({ page }) => {
 });
 
 test('Valid login', async ({ page }) => {
-  await page.goto('http://www.rahulshettyacademy.com/loginpagePractise/');
+  await page.goto('http://www.rahulshettyacademy.com/loginpagePractise/', {
+    waitUntil: 'commit',
+  });
 
   await page.locator('[type="text"]').fill('rahulshettyacademy');
 
@@ -58,7 +62,9 @@ test('Valid login', async ({ page }) => {
 });
 
 test('Find all the card titles', async ({ page }) => {
-  await page.goto('http://www.rahulshettyacademy.com/loginpagePractise/');
+  await page.goto('http://www.rahulshettyacademy.com/loginpagePractise/', {
+    waitUntil: 'commit',
+  });
 
   await page.locator('[type="text"]').fill('rahulshettyacademy');
 
@@ -86,7 +92,9 @@ test('Registration and Signup', async ({ browser }) => {
 
   const context = await browser.newContext();
   const page = await context.newPage();
-  await page.goto('https://rahulshettyacademy.com/client/');
+  await page.goto('https://rahulshettyacademy.com/client/', {
+    waitUntil: 'commit',
+  });
 
   await expect(page).toHaveTitle("Let's Shop");
 
@@ -110,5 +118,5 @@ test('Registration and Signup', async ({ browser }) => {
   await page.getByRole('button', { name: 'Login' }).click();
 
   //wait for all images to be loaded
-  await (page.locator('[class="card-img-top"]')).last().waitFor()
+  await page.locator('[class="card-img-top"]').last().waitFor();
 });

@@ -74,6 +74,10 @@ test('Find all the card titles', async ({ page }) => {
 
   await page.locator('[type="submit"]').click();
 
+  await page.waitForURL('https://rahulshettyacademy.com/angularpractice/shop', {
+    waitUntil: 'commit',
+  });
+
   await expect(page).toHaveTitle('ProtoCommerce');
 
   await expect(page.locator('.card-title a')).toHaveText([

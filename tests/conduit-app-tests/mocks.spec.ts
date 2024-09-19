@@ -29,7 +29,7 @@ test('Empty Mock Global Feed Page', async ({ authenticatedPage }) => {
     });
   });
 
-  await authenticatedPage.waitForTimeout(1500);
+  await authenticatedPage.waitForTimeout(3000);
 
   await expect(authenticatedPage.locator('.article-preview')).toHaveText(
     /no articles are here... yet./i
@@ -41,11 +41,11 @@ test('Mock Articles Your Feed Page', async ({ authenticatedPage }) => {
       body: JSON.stringify(yourFeedArticlesData),
     });
   });
-  await authenticatedPage.waitForTimeout(1500);
+  await authenticatedPage.waitForTimeout(3000);
 
   await authenticatedPage.getByText(/your feed/i).click();
 
-  await authenticatedPage.waitForTimeout(1500);
+  await authenticatedPage.waitForTimeout(3000);
 
   await authenticatedPage.locator('.preview-link').last().waitFor();
   const getArticlesTitle = authenticatedPage.locator('.preview-link h1');
@@ -63,11 +63,11 @@ test('Empty Mock Your Feed Page', async ({ authenticatedPage }) => {
     });
   });
 
-  await authenticatedPage.waitForTimeout(1500);
+  await authenticatedPage.waitForTimeout(3000);
 
   await authenticatedPage.getByText(/your feed/i).click();
 
-  await authenticatedPage.waitForTimeout(1500);
+  await authenticatedPage.waitForTimeout(3000);
 
   await expect(authenticatedPage.locator('.article-preview')).toHaveText(
     /no articles are here... yet./i

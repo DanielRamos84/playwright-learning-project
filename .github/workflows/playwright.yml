@@ -12,6 +12,8 @@ jobs:
       EMAIL: ${{ secrets.TEST_EMAIL }}
       PASSWORD: ${{ secrets.TEST_PASSWORD }}
       USER: ${{ secrets.TEST_USER }}
+      LOGIN_EMAIL_PRACTICE_SITE: ${{ secrets.LOGIN_TEST_EMAIL_PRACTICE_SITE }}
+      LOGIN_PASSWORD_PRACTICE_SITE: ${{ secrets.LOGIN_TEST_PASSWORD_PRACTICE_SITE}}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

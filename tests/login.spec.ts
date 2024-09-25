@@ -1,5 +1,10 @@
 import { test, expect } from '@playwright/test';
 import { faker } from '@faker-js/faker';
+import * as dotenv from 'dotenv';
+dotenv.config();
+
+const email = process.env.LOGIN_EMAIL_PRACTICE_SITE;
+const password = process.env.LOGIN_PASSWORD_PRACTICE_SITE;
 
 test('Creating context for browser in case you need to inject something to the browser', async ({
   browser,
@@ -44,31 +49,41 @@ test('Incorrect username / password', async ({ page }) => {
 });
 
 test('Valid login', async ({ page }) => {
+  if (!email || !password) {
+    throw new Error(
+      'Environment variables LOGIN_EMAIL_PRACTICE_SITE and LOGIN_PASSWORD_PRACTICE_SITE must be defined'
+    );
+  }
+
   await page.goto('http://www.rahulshettyacademy.com/loginpagePractise/', {
     waitUntil: 'commit',
   });
 
-  await page.locator('[type="text"]').fill('rahulshettyacademy');
-
-  await page.locator('[type="password"]').fill('learning');
-
+  await page.locator('[type="text"]').fill(email);
+  await page.locator('[type="password"]').fill(password);
   await page.locator('[type="checkbox"]').check();
 
   await page.locator('[type="submit"]').click();
 
   await page.waitForURL('https://rahulshettyacademy.com/angularpractice/shop');
 
-  await expect(page).toHaveTitle('ProtoCommerce');
+  await expect(page).toHaveTitle(/ProtoCommerce/);
 });
 
 test('Find all the card titles', async ({ page }) => {
+  if (!email || !password) {
+    throw new Error(
+      'Environment variables LOGIN_EMAIL_PRACTICE_SITE and LOGIN_PASSWORD_PRACTICE_SITE must be defined'
+    );
+  }
+
   await page.goto('http://www.rahulshettyacademy.com/loginpagePractise/', {
     waitUntil: 'commit',
   });
 
-  await page.locator('[type="text"]').fill('rahulshettyacademy');
+  await page.locator('[type="text"]').fill(email);
 
-  await page.locator('[type="password"]').fill('learning');
+  await page.locator('[type="password"]').fill(password);
 
   await page.locator('[type="checkbox"]').check();
 
